@@ -46,35 +46,6 @@ public class Neo4jTests implements AutoCloseable{
     
     public void createData(){
         try (Session session = driver.session()){
-//        	session.run("MATCH (a:Product {product:'product1'}),(b:Category{category:'category1'}) CREATE (a)-[r:IS_IN]->(b)"); 
-//        	session.run("MATCH (a:Product {product:'product2'}),(b:Category{category:'category1'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product3'}),(b:Category{category:'category1'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product4'}),(b:Category{category:'category1'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product5'}),(b:Category{category:'category2'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product6'}),(b:Category{category:'category2'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product7'}),(b:Category{category:'category2'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product8'}),(b:Category{category:'category2'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product9'}),(b:Category{category:'category3'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product10'}),(b:Category{category:'category3'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product11'}),(b:Category{category:'category3'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	session.run("MATCH (a:Product {product:'product12'}),(b:Category{category:'category3'}) CREATE (a)-[r:IS_IN]->(b)");
-//        	
-//        	session.run("MATCH (a:Customer {customer:'customer1'}),(b:Product{product:'product1'}) CREATE (a)-[r:ADDED_TO_WISH_LIST]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer2'}),(b:Product{product:'product4'}) CREATE (a)-[r:ADDED_TO_WISH_LIST]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer2'}),(b:Product{product:'product7'}) CREATE (a)-[r:ADDED_TO_WISH_LIST]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer3'}),(b:Product{product:'product9'}) CREATE (a)-[r:ADDED_TO_WISH_LIST]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer3'}),(b:Product{product:'product11'}) CREATE (a)-[r:ADDED_TO_WISH_LIST]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer4'}),(b:Product{product:'product12'}) CREATE (a)-[r:ADDED_TO_WISH_LIST]->(b)");
-//        	
-//        	session.run("MATCH (a:Customer {customer:'customer1'}),(b:Product {product:'product1'}) CREATE (a)-[r:VIEWED]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer2'}),(b:Product {product:'product4'}) CREATE (a)-[r:VIEWED]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer3'}),(b:Product {product:'product9'}) CREATE (a)-[r:VIEWED]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer4'}),(b:Product {product:'product12'}) CREATE (a)-[r:VIEWED]->(b)");
-//        	
-//        	session.run("MATCH (a:Customer {customer:'customer1'}),(b:Product {product:'product1'}) CREATE (a)-[r:BOUGHT]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer2'}),(b:Product {product:'product7'}) CREATE (a)-[r:BOUGHT]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer3'}),(b:Product {product:'product11'}) CREATE (a)-[r:BOUGHT]->(b)");
-//        	session.run("MATCH (a:Customer {customer:'customer4'}),(b:Product {product:'product12'}) CREATE (a)-[r:BOUGHT]->(b)");
         	
         	session.run("CREATE (smartphones:Category {title: 'Smartphones'}), \r\n"
         			+ "(notebooks:Category {title: 'Notebooks'}), \r\n"
@@ -187,28 +158,6 @@ public class Neo4jTests implements AutoCloseable{
 	
 	public static void main(String[] args) throws Exception{
 		try (Neo4jTests session = new Neo4jTests("bolt://localhost:7687", "neo4j", "test123")) {
-			
-//			session.addProduct("product1");
-//			session.addProduct("product2");
-//			session.addProduct("product3");
-//			session.addProduct("product4");
-//			session.addProduct("product5");
-//			session.addProduct("product6");
-//			session.addProduct("product7");
-//			session.addProduct("product8");
-//			session.addProduct("product9");
-//			session.addProduct("product10");
-//			session.addProduct("product11");
-//			session.addProduct("product12");
-//			
-//			session.addCustomer("customer1");
-//			session.addCustomer("customer2");
-//			session.addCustomer("customer3");
-//			session.addCustomer("customer4");
-//			
-//			session.addCategory("category1");
-//			session.addCategory("category2");
-//			session.addCategory("category3");
 			
 			session.createData();
 			session.classesSummary();
