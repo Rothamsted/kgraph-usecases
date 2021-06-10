@@ -121,11 +121,11 @@ public class Neo4jTests implements AutoCloseable{
         }       
     }
     
-    private void nodeAttributesSummary() {
+    private void nodeAttributesSummary(String node) {
         try (Session session = driver.session()) {        	
-        	Result result = session.run("MATCH (n:Customer) WITH KEYS(n) AS props, n"
-        			+ " UNWIND props AS property RETURN DISTINCT property");
-            while (result.hasNext()) { //change with a string param (n:Customer) would be $customer (example)
+        	Result result = session.run("MATCH (n:"+ node +") WITH KEYS(n) AS props, n"
+        			+ " UNWIND props AS property RETURN DISTINCT property, COUNT(n) as freq");
+            while (result.hasNext()) { 
                 Record record = result.next();
                 System.out.println(record);
             }
@@ -134,8 +134,8 @@ public class Neo4jTests implements AutoCloseable{
     
     private void relationsSummary() {
         try (Session session = driver.session()) {
-        	Result result = session.run("MATCH (x)-[r]->(y) WITH LABELS(x) AS xlabels, LABELS(y) AS ylabels, COUNT(r) AS cnt"
-        			+ "");
+        	Result result = session.run("MATCH (x)-[r]->(y) WITH LABELS(x) AS xlabels, LABELS(y) AS ylabels, COUNT(r) AS cnt, TYPE(r) AS relType"
+        			+ " UNWIND relType AS rel RETURN xlabels, rel, ylabels, cnt");
             while (result.hasNext()) {
                 Record record = result.next();
                 System.out.println(record);
@@ -161,9 +161,10 @@ public class Neo4jTests implements AutoCloseable{
 			
 			session.createData();
 			session.classesSummary();
-			session.nodeAttributesSummary();
+			session.nodeAttributesSummary("Product");
+			session.relationsSummary();
 			//session.printRelationship();
-			//session.resetDB();
+			session.resetDB();
 			
 		}
 
