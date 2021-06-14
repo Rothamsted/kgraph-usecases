@@ -2,6 +2,9 @@ package uk.ac.rothamsted.neo4j.metagraph;
 
 import static org.neo4j.driver.Values.parameters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.GraphDatabase;
@@ -9,6 +12,16 @@ import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 
+/**
+ * 
+ * TODO: If you want to spend some time to familiarise with it, JUnit is the best way to write 
+ * the multiple tests you have here:
+ *
+ * https://mkyong.com/maven/how-to-run-unit-test-with-maven/
+ * https://baeldung-cn.com/junit-5-test-annotation
+ * https://www.javatpoint.com/junit-tutorial (this doesn't use Maven)
+ *
+ */
 public class Neo4jTests implements AutoCloseable{
 
 	private final Driver driver;
@@ -110,20 +123,25 @@ public class Neo4jTests implements AutoCloseable{
         }
     }
     
-    private void classesSummary() {
-        try (Session session = driver.session()) {        	
+    private List<Object[]> classesSummary() {
+        try (Session session = driver.session()) {
+        	List<Object[]> result1 = new ArrayList<> ();
         	Result result = session.run("MATCH (n) WITH LABELS(n) AS labels, COUNT(n) AS freq"
         			+ " UNWIND labels AS label RETURN DISTINCT (label) AS label, freq");
             while (result.hasNext()) {
                 Record record = result.next();
                 System.out.println(record);
+                result1.add ( 
+                	new Object[] { record.get ( "label" ).asString (), record.get ( "freq" ).asInt () } 
+                );
             }
+            return result1;
         }       
     }
     
-    private void nodeAttributesSummary(String node) {
+    private void nodeAttributesSummary(String label) {
         try (Session session = driver.session()) {        	
-        	Result result = session.run("MATCH (n:"+ node +") WITH KEYS(n) AS props, n"
+        	Result result = session.run("MATCH (n:"+ label +") WITH KEYS(n) AS props, n"
         			+ " UNWIND props AS property RETURN DISTINCT property, COUNT(n) as freq");
             while (result.hasNext()) { 
                 Record record = result.next();
