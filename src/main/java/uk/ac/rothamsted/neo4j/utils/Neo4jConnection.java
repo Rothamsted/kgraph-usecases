@@ -25,8 +25,9 @@ public abstract class Neo4jConnection implements AutoCloseable
   }
 	
   @Override
-  public void close() throws Exception{
+  public void close() {
       driver.close();
   }
 
+  
 }
