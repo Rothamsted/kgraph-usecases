@@ -1,8 +1,5 @@
 package uk.ac.rothamsted.neo4j.metagraph;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * TODO: comment me!
  */

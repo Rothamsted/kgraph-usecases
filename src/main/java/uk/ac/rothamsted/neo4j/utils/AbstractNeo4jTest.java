@@ -2,9 +2,6 @@ package uk.ac.rothamsted.neo4j.utils;
 
 import org.neo4j.driver.Session;
 
-import uk.ac.rothamsted.neo4j.metagraph.Neo4jMetaGraph;
-import uk.ac.rothamsted.neo4j.metagraph.Neop4jMetaGraphTest;
-
 /**
  * An abstract skeleton for tests regarding the Neo4j functionality in this hereby package.
  * 
