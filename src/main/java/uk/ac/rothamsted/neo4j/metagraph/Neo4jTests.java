@@ -127,7 +127,7 @@ public class Neo4jTests implements AutoCloseable{
         try (Session session = driver.session()) {
         	List<Object[]> result1 = new ArrayList<> ();
         	Result result = session.run("MATCH (n) WITH LABELS(n) AS labels, COUNT(n) AS freq"
-        			+ " UNWIND labels AS label RETURN DISTINCT (label) AS label, freq");
+        			+ " UNWIND labels AS label RETURN DISTINCT (label) AS label, freq ORDER BY freq DESC");
             while (result.hasNext()) {
                 Record record = result.next();
                 System.out.println(record);
@@ -160,7 +160,7 @@ public class Neo4jTests implements AutoCloseable{
             }
         }
     }
-    
+
     private void resetDB(){
     	try (Session session = driver.session()){
     		session.run("MATCH (a)-[r]->() DELETE a, r");
@@ -175,14 +175,21 @@ public class Neo4jTests implements AutoCloseable{
 	
 	
 	public static void main(String[] args) throws Exception{
-		try (Neo4jTests session = new Neo4jTests("bolt://localhost:7687", "neo4j", "test123")) {
+		try (Neo4jMetaGraph metaGraph = new Neo4jMetaGraph("bolt://localhost:7687", "neo4j", "test123")) {
 			
 			session.createData();
-			session.classesSummary();
-			session.nodeAttributesSummary("Product");
-			session.relationsSummary();
+			
+			List<ClassSummaryRow> rows = metaGraph.classesSummary();
+			for (ClassSummaryRow row:rows) {
+				System.out.println(row.getLabel() + row.getFreq());
+			} //this is how to test this specific class, continue with the others
+			
+			
+			metaGraph.nodeAttributeSummary("Product");
+			metaGraph.relationsSummary();
 			//session.printRelationship();
-			session.resetDB();
+			metaGraph.resetDB();
+			
 			
 		}
 

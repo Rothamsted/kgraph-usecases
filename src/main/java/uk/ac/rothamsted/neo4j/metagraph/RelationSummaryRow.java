@@ -6,9 +6,10 @@ package uk.ac.rothamsted.neo4j.metagraph;
  */
 public class RelationSummaryRow
 {
-	private String fromType, toType, relationType, frequency;
+	private String fromType, toType, relationType; 
+	private long frequency;
 
-	public RelationSummaryRow ( String fromType, String toType, String relationType, String frequency )
+	public RelationSummaryRow ( String fromType, String toType, String relationType, long frequency )
 	{
 		super ();
 		this.fromType = fromType;
@@ -32,7 +33,7 @@ public class RelationSummaryRow
 		return relationType;
 	}
 
-	public String getFrequency ()
+	public long getFrequency ()
 	{
 		return frequency;
 	} 

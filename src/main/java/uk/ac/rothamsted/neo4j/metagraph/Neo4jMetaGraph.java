@@ -1,6 +1,11 @@
 package uk.ac.rothamsted.neo4j.metagraph;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.neo4j.driver.Record;
+import org.neo4j.driver.Result;
+import org.neo4j.driver.Session;
 
 import uk.ac.rothamsted.neo4j.utils.Neo4jConnection;
 
@@ -24,18 +29,47 @@ public class Neo4jMetaGraph extends Neo4jConnection
   	// add it to a result list
   	// 
   	// List results in descending order (by frequency)
-  	return null;
+	
+    try (Session session = driver.session()) {
+      	List<ClassSummaryRow> result1 = new ArrayList<>();
+      	Result result = session.run("MATCH (n) WITH LABELS(n) AS labels, COUNT(n) AS freq"
+      			+ " UNWIND labels AS label RETURN DISTINCT (label) AS label, freq ORDER BY freq DESC");
+        while (result.hasNext()) {
+            Record record = result.next();
+            //System.out.println(record);
+            result1.add(new ClassSummaryRow(record.get("label").asString(),record.get("freq").asLong()));
+        }
+        return result1;
+    }  
   }
   
   public List<RelationSummaryRow> relationsSummary() {
-  	// TODO: As above
-  	return null;
+      try (Session session = driver.session()) {
+    	  List<RelationSummaryRow> result1 = new ArrayList<>();
+      	  Result result = session.run("MATCH (x)-[r]->(y) WITH LABELS(x) AS fromType, LABELS(y) AS toType, COUNT(r) AS freq, TYPE(r) AS relType"
+      			+ " UNWIND relTypes AS relationType RETURN fromType, relationType, toType, freq");
+          while (result.hasNext()) {
+              Record record = result.next();
+              System.out.println(record);
+              result1.add(new RelationSummaryRow(record.get("fromType").asString(),record.get("relationType").asString(),record.get("toType").asString(),record.get("freq").asLong()));
+          }
+          return result1;
+      }
   }
   
   public List<AttributeSummaryRow> nodeAttributeSummary ( String nodeLabel )
   {
-  	// TODO: as above
-  	return null;
+      try (Session session = driver.session()) { 
+    	List<AttributeSummaryRow> result1 = new ArrayList<>();
+      	Result result = session.run("MATCH (n:"+ nodeLabel +") WITH KEYS(n) AS props, n"
+      			+ " UNWIND props AS property RETURN DISTINCT property, COUNT(n) as freq");
+          while (result.hasNext()) { 
+              Record record = result.next();
+              System.out.println(record);
+              result1.add(new AttributeSummaryRow(record.get("property").asString(),record.get("freq").asLong()));
+          }
+          return result1;
+      }   
   }
   
   public List<AttributeSummaryRow> relationAttributeSummary ( String relationType )
