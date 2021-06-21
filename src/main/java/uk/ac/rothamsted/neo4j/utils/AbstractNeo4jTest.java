@@ -114,5 +114,8 @@ public abstract class AbstractNeo4jTest extends Neo4jConnection implements Runna
 		this.resetDB();
   }
     
+  /**
+   * This does some testing action, after data creation, @see {@link #run()}.
+   */
   public abstract void doTest ();
 }
