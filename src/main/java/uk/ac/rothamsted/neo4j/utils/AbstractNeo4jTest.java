@@ -6,15 +6,21 @@ import uk.ac.rothamsted.neo4j.metagraph.Neo4jMetaGraph;
 import uk.ac.rothamsted.neo4j.metagraph.Neop4jMetaGraphTest;
 
 /**
- * TODO: comment me!
- *
- * @author brandizi
- * <dl><dt>Date:</dt><dd>21 Jun 2021</dd></dl>
- *
+ * An abstract skeleton for tests regarding the Neo4j functionality in this hereby package.
+ * 
+ * @see #run() for details.
+ * 
  */
-public abstract class AbstractNeo4jTest extends Neo4jConnection
+public abstract class AbstractNeo4jTest extends Neo4jConnection implements Runnable
 {
+	/**
+	 * The connection coordinates for the test database.
+	 * 
+	 * These are useful to write {@link #doTest() your test} against the same database.
+	 * 
+	 */
 	public static final String TEST_URL = "bolt://localhost:7687", TEST_USER = "neo4j", TEST_PWD = "test123";
+		
 	
 	public AbstractNeo4jTest ()
 	{
@@ -94,18 +100,19 @@ public abstract class AbstractNeo4jTest extends Neo4jConnection
   	}
   }
   
+  /**
+   * The test skeleton: it {@link #createData() creates some data on the test DB}, 
+   * then {@link #doTest() runs your specific test} and finally {@link #resetDB() cleans} the
+   * database of the test data.
+   *
+   */
+  @Override
   public void run ()
   {
-		try (
-			Neop4jMetaGraphTest test = new Neop4jMetaGraphTest();
-		) 
-		{
-			test.createData();
-			doTest ();
-			test.resetDB();
-		}
+		this.createData();
+		this.doTest ();
+		this.resetDB();
   }
-  
-  
+    
   public abstract void doTest ();
 }
