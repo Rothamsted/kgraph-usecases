@@ -27,4 +27,8 @@ public class ClassSummaryRow
 		return frequency;
 	}
 	
+	public String toString() {
+		return "label: " + getLabel() + ", Frequency: " + getFreq() ;
+	}
+	
 }

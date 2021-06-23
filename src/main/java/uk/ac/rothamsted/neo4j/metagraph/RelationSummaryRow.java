@@ -38,5 +38,9 @@ public class RelationSummaryRow
 		return frequency;
 	} 
 	
+	public String toString() {
+		return getFromType() + "-" + getRelationType() + "->" + getToType() + " Frequency: " + getFrequency();
+	}
+	
 	
 }

@@ -47,10 +47,10 @@ public class Neo4jMetaGraph extends Neo4jConnection
       try (Session session = driver.session()) {
     	  List<RelationSummaryRow> result1 = new ArrayList<>();
       	  Result result = session.run("MATCH (x)-[r]->(y) WITH LABELS(x) AS fromType, LABELS(y) AS toType, COUNT(r) AS freq, TYPE(r) AS relType"
-      			+ " UNWIND relTypes AS relationType RETURN fromType, relationType, toType, freq");
+      			+ " UNWIND relType AS relationType RETURN fromType, relationType, toType, freq");
           while (result.hasNext()) {
               Record record = result.next();
-              System.out.println(record);
+              //System.out.println(record);
               result1.add(new RelationSummaryRow(record.get("fromType").asString(),record.get("relationType").asString(),record.get("toType").asString(),record.get("freq").asLong()));
           }
           return result1;
@@ -65,7 +65,7 @@ public class Neo4jMetaGraph extends Neo4jConnection
       			+ " UNWIND props AS property RETURN DISTINCT property, COUNT(n) as freq");
           while (result.hasNext()) { 
               Record record = result.next();
-              System.out.println(record);
+              //System.out.println(record);
               result1.add(new AttributeSummaryRow(record.get("property").asString(),record.get("freq").asLong()));
           }
           return result1;

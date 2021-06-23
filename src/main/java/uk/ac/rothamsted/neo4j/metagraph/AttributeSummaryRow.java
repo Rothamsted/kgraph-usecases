@@ -32,4 +32,9 @@ public class AttributeSummaryRow {
 		return frequency;
 	}
 	
+	public String toString() {
+		return "Property: " + getProperty() + " Frequency: " + getFreq() ;
+	}
+	
+	
 }

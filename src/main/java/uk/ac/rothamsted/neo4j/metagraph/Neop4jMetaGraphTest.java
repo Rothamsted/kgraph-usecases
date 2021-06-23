@@ -1,5 +1,7 @@
 package uk.ac.rothamsted.neo4j.metagraph;
 
+import java.util.List;
+
 import uk.ac.rothamsted.neo4j.utils.AbstractNeo4jTest;
 
 /**
@@ -30,7 +32,10 @@ public class Neop4jMetaGraphTest extends AbstractNeo4jTest
 		) 
 		{
 			
-			testMeta.classesSummary();
+			List<ClassSummaryRow> rows = testMeta.classesSummary();
+			for (ClassSummaryRow row:rows) {
+				System.out.println(row.toString());
+			}
 			// TODO: println() and the rest...
 		}
 	}
