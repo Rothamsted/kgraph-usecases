@@ -14,11 +14,15 @@ import uk.ac.rothamsted.neo4j.utils.Neo4jTestBase;
  */
 public class Neo4jMetaGraphTest extends Neo4jTestBase
 {
+	/**
+	 * This is used for the tests in this class
+	 */
+	protected Neo4jMetaGraph testMeta = new Neo4jMetaGraph ( this.driver );
+	
 	@Test
 	public void testClassesSummary ()
 	{
 		// Note we don't need the try() idiom to close the connection, since @After already does that
-		Neo4jMetaGraph testMeta = new Neo4jMetaGraph ( this.getDriver () );		
 		List<ClassSummaryRow> rows = testMeta.classesSummary();
 		
 		boolean expectedRowFound = false;
@@ -30,11 +34,28 @@ public class Neo4jMetaGraphTest extends Neo4jTestBase
 	}
 	
 	/**
-	 * TODO: write a similar test for the relationsSummary() method 
+	 * TODO: write a similar test for the relationsSummary() method and turn it into a test with the
+	 * @Test annotation 
 	 */
 	public void testRelationsSummary ()
 	{
 		
 	}
+	
+	/**
+	 * TODO: write a similar test for nodeAttributesSummary()
+	 */
+	public void testNodeAttributesSummary ()
+	{
+		
+	}
 
+	/**
+	 * TODO: write a similar test for relationAttributesSummary()
+	 */
+	public void testRelationAttributesSummary ()
+	{
+		
+	}
+	
 }

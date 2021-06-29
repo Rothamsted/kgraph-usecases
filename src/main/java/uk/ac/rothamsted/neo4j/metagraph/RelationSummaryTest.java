@@ -4,6 +4,11 @@ import java.util.List;
 
 import uk.ac.rothamsted.neo4j.utils.AbstractNeo4jTest;
 
+/**
+ * 
+ * TODO: to be removed as the other *TestOld classes 
+ *
+ */
 public class RelationSummaryTest extends AbstractNeo4jTest {
 
 	public static void main(String[] args) {

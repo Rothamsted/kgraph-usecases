@@ -1,7 +1,8 @@
 package uk.ac.rothamsted.neo4j.utils;
 
-import org.junit.After;
-import org.junit.Before;
+import org.neo4j.driver.AuthTokens;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.GraphDatabase;
 import org.neo4j.driver.Session;
 
 /**
@@ -10,23 +11,24 @@ import org.neo4j.driver.Session;
  * <dl><dt>Date:</dt><dd>29 Jun 2021</dd></dl>
  *
  */
-public abstract class Neo4jTestBase extends Neo4jConnection
+public abstract class Neo4jTestBase
 {
 	/**
 	 * The connection coordinates for the test database.
 	 * 
-	 * These are useful to write {@link #doTest() your test} against the same database.
-	 * 
 	 */
 	public static final String TEST_URL = "bolt://localhost:7687", TEST_USER = "neo4j", TEST_PWD = "test123";
-		
+
+	/**
+	 * In many cases it's more practical to initialise the driver independently from the {@link Neo4jConnection} subclasses, 
+	 * leaving them to concern only about using the driver for doing stuff.
+	 */
+	protected Driver driver = GraphDatabase.driver ( TEST_URL, AuthTokens.basic ( TEST_USER, TEST_PWD ) );
 	
-	public Neo4jTestBase ()
-	{
-		super ( TEST_URL, TEST_USER, TEST_PWD );
-	}
 	
-	@Before
+	// TODO: makes this to be run before every test method, using the proper JUnit annotation
+	// Note that such annotations are inherited by the subclasses like Neo4jMetaGraphTest
+	//
   public void createData(){
     try (Session session = driver.session()){
     	
@@ -93,18 +95,17 @@ public abstract class Neo4jTestBase extends Neo4jConnection
     } // try session
 	} // createData ()
 
-	@After
+	/**
+	 * TODO: makes this to be run after each test method, using the proper JUnit annotation.
+	 * As said above, this will be inherited by the subclasses. 
+	 */
   public void resetDB(){
   	try (Session session = driver.session()){
   		session.run("MATCH (a)-[r]->() DELETE a, r");
   		session.run("MATCH (a) DELETE a");
   	}
+  	
+  	driver.close ();
   }
 
-	@After
-	@Override
-	public void close ()
-	{
-		super.close ();
-	}
 }

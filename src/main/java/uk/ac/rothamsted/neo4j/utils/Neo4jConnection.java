@@ -50,5 +50,4 @@ public abstract class Neo4jConnection implements AutoCloseable
 		return driver;
 	}
   
-  
 }
