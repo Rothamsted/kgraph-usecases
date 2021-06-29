@@ -19,15 +19,36 @@ public abstract class Neo4jConnection implements AutoCloseable
 {
 	protected final Driver driver;
 
-	public Neo4jConnection ( String uri,String user,String password ) 
+	public Neo4jConnection ( String uri, String user, String password ) 
 	{
-		driver = GraphDatabase.driver(uri, AuthTokens.basic(user,password));
-  }
-	
-  @Override
-  public void close() {
-      driver.close();
+		this ( GraphDatabase.driver ( uri, AuthTokens.basic ( user, password ) ) );
   }
 
+	/**
+	 * Starts a connection from an existing driver.
+	 */
+	public Neo4jConnection ( Driver driver ) 
+	{
+		this.driver = driver;
+  }
+	
+	
+	/**
+	 * This is idempotent (can be called more than once, without any effect after the first call).
+	 */
+  @Override
+  public void close()
+  {
+  	driver.close();
+  }
+
+  /**
+   * Allows for reusing the driver of a given connection.
+   */
+	public Driver getDriver ()
+	{
+		return driver;
+	}
+  
   
 }

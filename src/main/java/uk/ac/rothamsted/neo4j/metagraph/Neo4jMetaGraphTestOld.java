@@ -5,13 +5,13 @@ import java.util.List;
 import uk.ac.rothamsted.neo4j.utils.AbstractNeo4jTest;
 
 /**
- * TODO: comment me!
+ * TODO: to be removed. I needed to rename it into *Old, due to conflicts with new classes in
+ * src/test/
  *
- * @author brandizi
  * <dl><dt>Date:</dt><dd>21 Jun 2021</dd></dl>
  *
  */
-public class Neop4jMetaGraphTest extends AbstractNeo4jTest
+public class Neo4jMetaGraphTestOld extends AbstractNeo4jTest
 {
 
 	/**
@@ -19,7 +19,7 @@ public class Neop4jMetaGraphTest extends AbstractNeo4jTest
 	 */
 	public static void main ( String[] args )
 	{
-		try ( Neop4jMetaGraphTest test = new Neop4jMetaGraphTest () ) {
+		try ( Neo4jMetaGraphTestOld test = new Neo4jMetaGraphTestOld () ) {
 			test.run ();
 		}
 	}

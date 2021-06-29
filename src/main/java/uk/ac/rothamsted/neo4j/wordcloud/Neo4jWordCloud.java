@@ -1,5 +1,7 @@
 package uk.ac.rothamsted.neo4j.wordcloud;
 
+import org.neo4j.driver.Driver;
+
 import uk.ac.rothamsted.neo4j.utils.Neo4jConnection;
 
 /**
@@ -13,4 +15,10 @@ public class Neo4jWordCloud extends Neo4jConnection
 	{
 		super ( uri, user, password );
 	}
+
+	public Neo4jWordCloud ( Driver driver )
+	{
+		super ( driver );
+	}
+	
 }

@@ -3,6 +3,7 @@ package uk.ac.rothamsted.neo4j.metagraph;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.neo4j.driver.Driver;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
@@ -22,7 +23,14 @@ public class Neo4jMetaGraph extends Neo4jConnection
 		super ( uri, user, password );
 	}
 	
-  public List<ClassSummaryRow> classesSummary()
+  public Neo4jMetaGraph ( Driver driver )
+	{
+		super ( driver );
+	}
+
+
+
+	public List<ClassSummaryRow> classesSummary()
   {
   	// TODO: take the existing code and adapt it to this
   	// It should create a ClassSummaryRow for every record coming from Neo4j and
@@ -57,7 +65,7 @@ public class Neo4jMetaGraph extends Neo4jConnection
       }
   }
   
-  public List<AttributeSummaryRow> nodeAttributeSummary ( String nodeLabel )
+  public List<AttributeSummaryRow> nodeAttributesSummary ( String nodeLabel )
   {
       try (Session session = driver.session()) { 
     	List<AttributeSummaryRow> result1 = new ArrayList<>();
@@ -72,9 +80,9 @@ public class Neo4jMetaGraph extends Neo4jConnection
       }   
   }
   
-  public List<AttributeSummaryRow> relationAttributeSummary ( String relationType )
+  public List<AttributeSummaryRow> relationAttributesSummary ( String relationType )
   {
-  	// TODO: leave this for later. It shouldn't be difficult to write by using an approach similar
+  	// TODO: leave this for later. It shouldn't be difficult to write it by using an approach similar
   	// to nodeAttributeSummary:
   	
   	var query = "MATCH p=()-[r:" + relationType + "]->() WITH KEYS(r) AS props, r\n" +
