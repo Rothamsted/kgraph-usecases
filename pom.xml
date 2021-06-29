@@ -17,11 +17,9 @@
 	        <version>4.3.1</version>
 	    </dependency>
 
+			<!-- TODO: Add the JUnit 4.x dependency here, use the 'test' <scope> (why?) -->
 			<dependency>
-			  <groupId>junit</groupId>
-			  <artifactId>junit</artifactId>
-			  <version>4.13.1</version>
-			  <scope>test</scope>
+			...
 			</dependency>
 		    
   </dependencies>
