@@ -8,19 +8,21 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
 		<java.version>${maven.compiler.source}</java.version>
-	</properties>  
-  
-    <dependencies>
-	    <dependency>
-	        <groupId>org.neo4j.driver</groupId>
-	        <artifactId>neo4j-java-driver</artifactId>
-	        <version>4.3.1</version>
-	    </dependency>
+	</properties>
 
-			<!-- TODO: Add the JUnit 4.x dependency here, use the 'test' <scope> (why?) -->
-			<dependency>
-			...
-			</dependency>
-		    
-  </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>org.neo4j.driver</groupId>
+			<artifactId>neo4j-java-driver</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+
+		<!-- TODO: Add the JUnit 4.x dependency here, use the 'test' <scope> (why?) -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+		</dependency>
+
+	</dependencies>
 </project>
