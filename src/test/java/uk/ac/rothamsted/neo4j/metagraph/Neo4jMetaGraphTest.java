@@ -139,17 +139,49 @@ public class Neo4jMetaGraphTest extends Neo4jTestBase
 	/**
 	 * TODO: write a similar test for nodeAttributesSummary()
 	 */
+	@Test
 	public void testNodeAttributesSummary ()
 	{
+		createData();
+
+		List<AttributeSummaryRow> rows = testMeta.nodeAttributesSummary("Customer");
+
+		boolean expectedRowFound = false;
+		String expectedRow = "Property: name Frequency: 4";
+		resetDB();
 		
+		for (AttributeSummaryRow row: rows)
+		{
+			if (expectedRowFound = expectedRow.equals(row.toString())) 
+				break;
+		}
+		
+		Assert.assertTrue("Expected probe relation not found!", expectedRowFound);
+
 	}
 
 	/**
 	 * TODO: write a similar test for relationAttributesSummary()
 	 */
+	@Test
 	public void testRelationAttributesSummary ()
 	{
+		createData();
+
+		List<AttributeSummaryRow> rows = testMeta.relationAttributesSummary("VIEWED");
+
+		boolean expectedRowFound = false;
+		String expectedRow = "Property: views_count Frequency: 4";
+		resetDB();
 		
+		for (AttributeSummaryRow row: rows)
+		{
+			if (expectedRowFound = expectedRow.equals(row.toString())) 
+				break;
+		}
+		
+		Assert.assertTrue("Expected probe relation not found!", expectedRowFound);
+
 	}
 	
 }

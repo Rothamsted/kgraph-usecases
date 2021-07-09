@@ -32,10 +32,12 @@ public class Neo4jMetaGraphTestOld extends AbstractNeo4jTest
 		) 
 		{
 			
-			List<ClassSummaryRow> rows = testMeta.classesSummary();
-			for (ClassSummaryRow row:rows) {
+			List<AttributeSummaryRow> rows = testMeta.relationAttributesSummary("VIEWED");
+			for (AttributeSummaryRow row:rows) {
 				System.out.println(row.toString());
 			}
+			
+			
 			// TODO: println() and the rest...
 		}
 	}

@@ -44,7 +44,6 @@ public class Neo4jMetaGraph extends Neo4jConnection
       			+ " UNWIND labels AS label RETURN DISTINCT (label) AS label, freq ORDER BY freq DESC");
         while (result.hasNext()) {
             Record record = result.next();
-            //System.out.println(record);
             result1.add(new ClassSummaryRow(record.get("label").asString(),record.get("freq").asLong()));
         }
         return result1;
@@ -58,7 +57,6 @@ public class Neo4jMetaGraph extends Neo4jConnection
       			+ " UNWIND fromTypes AS fromType UNWIND toTypes AS toType UNWIND relType AS relationType RETURN fromType, toType, relationType, freq ORDER BY freq DESC");
           while (result.hasNext()) {
               Record record = result.next();
-              //System.out.println(record);
               result1.add(new RelationSummaryRow(record.get("fromType").asString(),record.get("toType").asString(),record.get("relationType").asString(),record.get("freq").asLong()));
           }
           return result1;
@@ -73,7 +71,6 @@ public class Neo4jMetaGraph extends Neo4jConnection
       			+ " UNWIND props AS property RETURN DISTINCT property, COUNT(n) as freq");
           while (result.hasNext()) { 
               Record record = result.next();
-              //System.out.println(record);
               result1.add(new AttributeSummaryRow(record.get("property").asString(),record.get("freq").asLong()));
           }
           return result1;
@@ -82,14 +79,21 @@ public class Neo4jMetaGraph extends Neo4jConnection
   
   public List<AttributeSummaryRow> relationAttributesSummary ( String relationType )
   {
-  	// TODO: leave this for later. It shouldn't be difficult to write it by using an approach similar
-  	// to nodeAttributeSummary:
-  	
-  	var query = "MATCH p=()-[r:" + relationType + "]->() WITH KEYS(r) AS props, r\n" +
-  		"UNWIND props as prop" +
-  		"...";
-  	
-  	return null;
+	  // TODO: leave this for later. It shouldn't be difficult to write it by using an approach similar
+	  // to nodeAttributeSummary:
+	  try (Session session = driver.session()) {
+		  List<AttributeSummaryRow> result1 = new ArrayList<>();
+		  //var query = "MATCH p=()-[r:" + relationType + "]->() WITH KEYS(r) AS props, r\n" +
+		  //	"UNWIND props as prop" +
+		  //	"RETURN DISTINCT prop, COUNT(n) as freq";
+		  Result result = session.run("MATCH p=()-[r:" + relationType + "]->() WITH KEYS(r) AS props, r\n" +
+				  " UNWIND props as property" +
+				  " RETURN DISTINCT property, COUNT(r) as freq");
+		  while (result.hasNext()) { 
+              Record record = result.next();
+              result1.add(new AttributeSummaryRow(record.get("property").asString(),record.get("freq").asLong()));
+          }
+		  return result1;
+	  }
   }
-
 }
