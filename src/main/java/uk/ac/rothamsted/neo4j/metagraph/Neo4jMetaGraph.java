@@ -28,6 +28,11 @@ public class Neo4jMetaGraph extends Neo4jConnection
 		super ( driver );
 	}
 
+	public Neo4jMetaGraph ()
+	{
+		super ();
+	}
+
 	public List<ClassSummaryRow> classesSummary()
   {
     try (Session session = driver.session()) {

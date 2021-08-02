@@ -3,7 +3,6 @@ package uk.ac.rothamsted.neo4j.web;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import uk.ac.rothamsted.neo4j.metagraph.AttributeSummaryRow;
@@ -16,7 +15,9 @@ public class Neo4jMetaGraphController { // search for the correct prefix to have
 
 	private Neo4jMetaGraph newMetaGraph()
 	{
-		return new Neo4jMetaGraph(<configured URI>, <configured user>, <configured pwd>); //same as within the abstractneo4jtest
+		// Use connection params from either the environment or test constants, see the
+		// method implementation
+		return new Neo4jMetaGraph (); 
 	}
 
 	@GetMapping ("/metagraph/classSummary")

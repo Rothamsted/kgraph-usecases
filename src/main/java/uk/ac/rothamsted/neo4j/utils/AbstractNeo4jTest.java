@@ -10,18 +10,9 @@ import org.neo4j.driver.Session;
  */
 public abstract class AbstractNeo4jTest extends Neo4jConnection implements Runnable
 {
-	/**
-	 * The connection coordinates for the test database.
-	 * 
-	 * These are useful to write {@link #doTest() your test} against the same database.
-	 * 
-	 */
-	public static final String TEST_URL = "bolt://localhost:7687", TEST_USER = "neo4j", TEST_PWD = "test123";
-		
-	
 	public AbstractNeo4jTest ()
 	{
-		super ( TEST_URL, TEST_USER, TEST_PWD );
+		super ();
 	}
 	
 	protected void createData(){
