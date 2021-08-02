@@ -28,16 +28,8 @@ public class Neo4jMetaGraph extends Neo4jConnection
 		super ( driver );
 	}
 
-
-
 	public List<ClassSummaryRow> classesSummary()
   {
-  	// TODO: take the existing code and adapt it to this
-  	// It should create a ClassSummaryRow for every record coming from Neo4j and
-  	// add it to a result list
-  	// 
-  	// List results in descending order (by frequency)
-	
     try (Session session = driver.session()) {
       	List<ClassSummaryRow> result1 = new ArrayList<>();
       	Result result = session.run("MATCH (n) WITH LABELS(n) AS labels, COUNT(n) AS freq"
@@ -79,13 +71,8 @@ public class Neo4jMetaGraph extends Neo4jConnection
   
   public List<AttributeSummaryRow> relationAttributesSummary ( String relationType )
   {
-	  // TODO: leave this for later. It shouldn't be difficult to write it by using an approach similar
-	  // to nodeAttributeSummary:
 	  try (Session session = driver.session()) {
 		  List<AttributeSummaryRow> result1 = new ArrayList<>();
-		  //var query = "MATCH p=()-[r:" + relationType + "]->() WITH KEYS(r) AS props, r\n" +
-		  //	"UNWIND props as prop" +
-		  //	"RETURN DISTINCT prop, COUNT(n) as freq";
 		  Result result = session.run("MATCH p=()-[r:" + relationType + "]->() WITH KEYS(r) AS props, r\n" +
 				  " UNWIND props as property" +
 				  " RETURN DISTINCT property, COUNT(r) as freq");
