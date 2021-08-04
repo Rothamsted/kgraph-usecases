@@ -94,10 +94,6 @@ public abstract class Neo4jTestBase
 		} // try session
 	} // createData ()
 
-	/**
-	 * TODO: makes this to be run after each test method, using the proper JUnit annotation.
-	 * As said above, this will be inherited by the subclasses. 
-	 */
 	
 	@After
 	public void resetDB(){
