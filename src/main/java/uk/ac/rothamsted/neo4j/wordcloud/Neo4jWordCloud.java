@@ -21,4 +21,8 @@ public class Neo4jWordCloud extends Neo4jConnection
 		super ( driver );
 	}
 	
+	public Neo4jWordCloud ()
+	{
+		super ();
+	}	
 }

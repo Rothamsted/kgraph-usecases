@@ -16,16 +16,12 @@ import org.neo4j.driver.Session;
 public abstract class Neo4jTestBase
 {
 	/**
-	 * The connection coordinates for the test database.
-	 * 
-	 */
-	public static final String TEST_URL = "bolt://localhost:7687", TEST_USER = "neo4j", TEST_PWD = "test123";
-
-	/**
 	 * In many cases it's more practical to initialise the driver independently from the {@link Neo4jConnection} subclasses, 
 	 * leaving them to concern only about using the driver for doing stuff.
 	 */
-	protected Driver driver = GraphDatabase.driver ( TEST_URL, AuthTokens.basic ( TEST_USER, TEST_PWD ) );
+	protected Driver driver = GraphDatabase.driver ( 
+		Neo4jConnection.TEST_URL, AuthTokens.basic ( Neo4jConnection.TEST_USER, Neo4jConnection.TEST_PWD ) 
+	);
 	
 	
 	// TODO: makes this to be run before every test method, using the proper JUnit annotation
@@ -98,10 +94,6 @@ public abstract class Neo4jTestBase
 		} // try session
 	} // createData ()
 
-	/**
-	 * TODO: makes this to be run after each test method, using the proper JUnit annotation.
-	 * As said above, this will be inherited by the subclasses. 
-	 */
 	
 	@After
 	public void resetDB(){

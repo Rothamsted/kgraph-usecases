@@ -1,5 +1,7 @@
 package uk.ac.rothamsted.neo4j.utils;
 
+import java.util.Optional;
+
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.GraphDatabase;
@@ -17,8 +19,41 @@ import org.neo4j.driver.GraphDatabase;
  */
 public abstract class Neo4jConnection implements AutoCloseable
 {
-	protected final Driver driver;
+	/**
+	 * The connection coordinates for the test database.
+	 * 
+	 * If you use the Neo4j Maven plug-in, ensure these match {@code <configuration>}.
+	 * 
+	 * These were moved here, so that they can be used by non-testing component too 
+	 * (eg, Spring).
+	 * 
+	 */
+	public static final String 
+		TEST_URL = "bolt://localhost:7687",
+		TEST_USER = "neo4j",
+		TEST_PWD = "test123";
 
+	protected final Driver driver;
+	
+	
+	/**
+	 * Gets the connection parameters from the environment variables
+	 * NEO_URL, NEO_USER, NEO_PWD.
+	 * 
+	 * If these are not set, uses the constants defined above.
+	 * To set such variables, <a href = "https://tinyurl.com/y78qpmn8">Windows</a>,
+	 * <a href = "https://tinyurl.com/yeueoyts">Unix/Linux</a>.
+	 */
+	public Neo4jConnection ()
+	{
+		this ( 
+			Optional.ofNullable ( System.getenv ( "NEO_URL" ) ).orElse ( TEST_URL ), 
+			Optional.ofNullable ( System.getenv ( "NEO_USER" ) ).orElse ( TEST_USER ), 			
+			Optional.ofNullable ( System.getenv ( "NEO_PWD" ) ).orElse ( TEST_PWD ) 			
+		);
+	}
+	
+	
 	public Neo4jConnection ( String uri, String user, String password ) 
 	{
 		this ( GraphDatabase.driver ( uri, AuthTokens.basic ( user, password ) ) );
