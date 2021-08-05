@@ -34,16 +34,14 @@
 			<version>4.13.2</version>
 		</dependency>
 
-		<!-- This is needed due to a mix of JUnit 5 (used by Spring) and 4 (used by us)
-		     Many thanks to: https://stackoverflow.com/a/67148219/529286
-		-->		
+		<!-- This is needed due to a mix of JUnit 5 (used by Spring) and 4 (used 
+			by us) Many thanks to: https://stackoverflow.com/a/67148219/529286 -->
 		<dependency>
-		  <groupId>org.junit.vintage</groupId>
-		  <artifactId>junit-vintage-engine</artifactId>
-	    <version>5.8.0-M1</version>
-		  <scope>test</scope>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>5.8.0-M1</version>
+			<scope>test</scope>
 		</dependency>
-		
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,78 +53,69 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
-		<plugins>
-
-			<!--
-				You need to have this before the Neo4j server plug-in, since both tests and then
-				Neo4j stop happens in the same 'test' phase (see below). 
-			-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-					
-						
-			<!--
-				Starts and stops a test Neo4j server before/after our tests 
-				Please, see details here: https://github.com/Rothamsted/neo4j-server-maven-plugin
-			-->
-			<plugin>
-			  <groupId>com.github.harti2006</groupId>
-			  <artifactId>neo4j-server-maven-plugin</artifactId>
-			  <version>2.0-SNAPSHOT</version>
-				<configuration>
-				  <version>4.3.2</version>
-				  <password>test123</password>
-				</configuration>
-		    <executions>
-	        <execution>
-	          <id>start-neo4j-server</id>
-	          <!-- 
-	          	Defaults for start/stop are pre-integration-test and post-integration-test and
-	          	*IT.java tests are executed during the integration test phase.
-	          	Here, we make it simpler by starting/stopping around the regular test stage.
-	          	        
-	          	This is a rather advanced Maven topic, see here for details:
-	          	https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html 
-	          -->
-	          <phase>process-test-resources</phase>
-	          <goals>
-              <goal>start</goal>
-	          </goals>
-	        </execution>
-	        <execution>
-	          <id>stop-neo4j-server</id>
-	          <!-- It's stopped after the tests (surefire), since the latter is listed above before this -->
-	          <phase>test</phase>
-	          <goals>
-              <goal>stop</goal>
-	          </goals>
-	        </execution>
-		    </executions>
-    				
-			</plugin>	
-
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!-- You need to have this before the Neo4j server plug-in, since both 
+					tests and then Neo4j stop happens in the same 'test' phase (see below). -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+				</plugin>
+				<!-- Starts and stops a test Neo4j server before/after our tests Please, 
+					see details here: https://github.com/Rothamsted/neo4j-server-maven-plugin -->
+				<plugin>
+					<groupId>com.github.harti2006</groupId>
+					<artifactId>neo4j-server-maven-plugin</artifactId>
+					<version>2.0-SNAPSHOT</version>
+					<configuration>
+						<version>4.3.2</version>
+						<password>test123</password>
+					</configuration>
+					<executions>
+						<execution>
+							<id>start-neo4j-server</id>
+							<!-- Defaults for start/stop are pre-integration-test and post-integration-test 
+								and *IT.java tests are executed during the integration test phase. Here, 
+								we make it simpler by starting/stopping around the regular test stage. This 
+								is a rather advanced Maven topic, see here for details: https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html -->
+							<phase>process-test-resources</phase>
+							<goals>
+								<goal>start</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>stop-neo4j-server</id>
+							<!-- It's stopped after the tests (surefire), since the latter is 
+								listed above before this -->
+							<phase>test</phase>
+							<goals>
+								<goal>stop</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
-
-
 	<repositories>
-	  <repository>
-	  	<!-- This is the neo4j plugin is searched -->
+		<repository>
+			<!-- This is the neo4j plugin is searched -->
 			<id>knetminer-repo</id>
 			<name>Knetminer Unified Repository</name>
 			<url>https://knetminer.com/artifactory/repository/maven-public</url>
-			<snapshots><enabled>true</enabled></snapshots>
-			<releases><enabled>true</enabled></releases>
-	  </repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 	</repositories>
 </project>

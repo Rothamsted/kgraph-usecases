@@ -13,17 +13,14 @@ import uk.ac.rothamsted.neo4j.metagraph.AttributeSummaryRow;
 import uk.ac.rothamsted.neo4j.metagraph.ClassSummaryRow;
 import uk.ac.rothamsted.neo4j.metagraph.Neo4jMetaGraph;
 import uk.ac.rothamsted.neo4j.metagraph.RelationSummaryRow;
-import uk.ac.rothamsted.neo4j.utils.AbstractNeo4jTest;
+import uk.ac.rothamsted.neo4j.utils.Neo4jConnection;
 
 @RestController
 @RequestMapping(value = "/metagraph", method = RequestMethod.GET)
-public class Neo4jMetaGraphController extends AbstractNeo4jTest{ // search for the correct prefix to have /metagraph here instead of all
+public class Neo4jMetaGraphController extends Neo4jConnection{
 
 	private Neo4jMetaGraph newMetaGraph() {
-		return new Neo4jMetaGraph(TEST_URL, TEST_USER, TEST_PWD);
-		// Use connection params from either the environment or test constants, see the
-		// method implementation
-		return new Neo4jMetaGraph(); 
+		return new Neo4jMetaGraph(TEST_URL, TEST_USER, TEST_PWD);	
 	}
 
 	@GetMapping ("/classSummary")
@@ -52,12 +49,6 @@ public class Neo4jMetaGraphController extends AbstractNeo4jTest{ // search for t
 		try (var meta = newMetaGraph()){
 			return meta.relationAttributesSummary(relationType);
 		}
-	}
-
-	@Override
-	public void doTest() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	//test manually first as shown in attributeSummary then:
