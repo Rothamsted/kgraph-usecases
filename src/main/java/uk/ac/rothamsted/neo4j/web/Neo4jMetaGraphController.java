@@ -53,6 +53,6 @@ public class Neo4jMetaGraphController extends Neo4jConnection{
 	
 	//test manually first as shown in attributeSummary then:
 	//complete so that you can actually run it correctly, then create a JUnit test to make sure that the 
-	//code above is working correctly too. JUnit testing can be found in the testing of the Greeting example/online
+	//code above is working correctly too. JUnit testing can be found in the testing of the Greeting example/online -> Postman
 	
 }

@@ -21,8 +21,8 @@ public class Neo4jWebTests {
 	@Test
 	public void classSummaryContainsProductLabel() throws Exception {
 
-		this.mockMvc.perform(get("/metagraph/classSummary"))
-				.andExpect(jsonPath("$.label").exists());
+		this.mockMvc.perform(get("/metagraph/classSummary")).andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$[0].label").exists());
 	}
 
 //	@Test

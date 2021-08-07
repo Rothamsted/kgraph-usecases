@@ -27,6 +27,14 @@ public abstract class Neo4jTestBase
 	// TODO: makes this to be run before every test method, using the proper JUnit annotation
 	// Note that such annotations are inherited by the subclasses like Neo4jMetaGraphTest
 	//
+	
+	@Before //fix after with statics
+	public void resetDB(){
+		try (Session session = driver.session()){
+			session.run("MATCH (a)-[r]->() DELETE a, r");
+			session.run("MATCH (a) DELETE a");
+	}
+	
 	@Before
 	public void createData(){
 		try (Session session = driver.session()){
@@ -93,14 +101,6 @@ public abstract class Neo4jTestBase
 
 		} // try session
 	} // createData ()
-
-	
-	@After
-	public void resetDB(){
-		try (Session session = driver.session()){
-			session.run("MATCH (a)-[r]->() DELETE a, r");
-			session.run("MATCH (a) DELETE a");
-		}
   	
   	driver.close ();
   }
