@@ -22,7 +22,7 @@ public class Neo4jWebTests {
 	public void classSummaryContainsProductLabel() throws Exception {
 
 		this.mockMvc.perform(get("/metagraph/classSummary")).andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$[0].label").exists());
+				.andExpect(jsonPath("$[0].label").value("Product"));
 	}
 
 //	@Test

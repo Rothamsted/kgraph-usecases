@@ -1,6 +1,5 @@
 package uk.ac.rothamsted.neo4j.utils;
 
-import org.junit.After;
 import org.junit.Before;
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
@@ -19,23 +18,21 @@ public abstract class Neo4jTestBase
 	 * In many cases it's more practical to initialise the driver independently from the {@link Neo4jConnection} subclasses, 
 	 * leaving them to concern only about using the driver for doing stuff.
 	 */
-	protected Driver driver = GraphDatabase.driver ( 
-		Neo4jConnection.TEST_URL, AuthTokens.basic ( Neo4jConnection.TEST_USER, Neo4jConnection.TEST_PWD ) 
-	);
-	
-	
+	protected Driver driver = GraphDatabase.driver( 
+			Neo4jConnection.TEST_URL, AuthTokens.basic(Neo4jConnection.TEST_USER, Neo4jConnection.TEST_PWD) 
+			);
+
 	// TODO: makes this to be run before every test method, using the proper JUnit annotation
 	// Note that such annotations are inherited by the subclasses like Neo4jMetaGraphTest
 	//
-	
-	@Before //fix after with statics
+
 	public void resetDB(){
 		try (Session session = driver.session()){
 			session.run("MATCH (a)-[r]->() DELETE a, r");
 			session.run("MATCH (a) DELETE a");
+		}
 	}
-	
-	@Before
+
 	public void createData(){
 		try (Session session = driver.session()){
 
@@ -99,10 +96,15 @@ public abstract class Neo4jTestBase
 					+ "MERGE(alisson)-[:BOUGHT]->(huawei_p8)\r\n"
 					+ "MERGE(alisson)-[:BOUGHT]->(sony_xperia_xa1);");
 
-		} // try session
-	} // createData ()
-  	
-  	driver.close ();
-  }
+		} 
+	} 
+	
+	@Before
+	public void startUp() {
+		resetDB();
+		createData();
+		driver.close();
+	}
 
 }
+
