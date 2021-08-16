@@ -20,7 +20,9 @@ import uk.ac.rothamsted.neo4j.utils.Neo4jConnection;
 public class Neo4jMetaGraphController extends Neo4jConnection{
 
 	private Neo4jMetaGraph newMetaGraph() {
-		return new Neo4jMetaGraph();	
+		// Use connection params from either the environment or test constants, see the
+		// method implementation
+		return new Neo4jMetaGraph(); 
 	}
 
 	@GetMapping ("/classSummary")
