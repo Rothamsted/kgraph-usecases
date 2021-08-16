@@ -44,6 +44,7 @@ public class Neo4jMetaGraphTest extends Neo4jTestBase
 		//
 		for ( ClassSummaryRow row: rows ) {
 			System.out.println ( "ROW: " + row );
+			// TODO: why were you using .match()?
 			if ( expectedRow.equals ( row.toString () ) ) return;
 		}
 		
