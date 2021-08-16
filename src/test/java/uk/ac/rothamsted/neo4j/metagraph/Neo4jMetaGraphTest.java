@@ -22,7 +22,7 @@ public class Neo4jMetaGraphTest extends Neo4jTestBase
 	{
 		List<ClassSummaryRow> rows = testMeta.classesSummary();
 		
-		boolean expectedRowFound = false;
+//		boolean expectedRowFound = false;
 		String expectedRow = "label: Category, Frequency: 3";
 
 //		int rowIndex = 0;
@@ -40,14 +40,16 @@ public class Neo4jMetaGraphTest extends Neo4jTestBase
 //			
 //		}
 		
-		// Compare this approach with yours above. Deletes the commented code afterwards.
+		// Compare this approach with yours above. Delete the commented code afterwards.
 		//
 		for ( ClassSummaryRow row: rows ) {
 			System.out.println ( "ROW: " + row );
-			if ( expectedRowFound = expectedRow.equals ( row.toString () ) ) break;
+			if ( expectedRow.equals ( row.toString () ) ) return;
 		}
 		
-		Assert.assertTrue ( "Probe row not found!", expectedRowFound );	
+		// This is executed without checking anything every time it's reached.
+		// Can you see why it works if expectedRow is found?
+		Assert.fail ( "Probe row not found!" );	
 		
 	}
 	
