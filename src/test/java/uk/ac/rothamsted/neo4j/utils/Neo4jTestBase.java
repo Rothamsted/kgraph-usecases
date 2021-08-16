@@ -21,19 +21,9 @@ public abstract class Neo4jTestBase
 	 * In many cases it's more practical to initialise the driver independently from the {@link Neo4jConnection}
 	 * subclasses, leaving them to concern only about using the driver for doing stuff.
 	 */
-<<<<<<< HEAD
 	protected Driver driver = GraphDatabase.driver( 
 			Neo4jConnection.TEST_URL, AuthTokens.basic(Neo4jConnection.TEST_USER, Neo4jConnection.TEST_PWD) 
 			);
-=======
-	protected Driver driver = GraphDatabase.driver ( Neo4jConnection.TEST_URL,
-			AuthTokens.basic ( Neo4jConnection.TEST_USER, Neo4jConnection.TEST_PWD ) );
->>>>>>> branch 'master' of https://github.com/Rothamsted/kgraph-usecases.git
-
-	// TODO: makes this to be run before every test method, using the proper JUnit annotation
-	// Note that such annotations are inherited by the subclasses like Neo4jMetaGraphTest
-	//
-<<<<<<< HEAD
 
 	public void resetDB(){
 		try (Session session = driver.session()){
@@ -44,25 +34,6 @@ public abstract class Neo4jTestBase
 
 	public void createData(){
 		try (Session session = driver.session()){
-=======
->>>>>>> branch 'master' of https://github.com/Rothamsted/kgraph-usecases.git
-
-	@Before // fix after with statics
-	public void resetDB ()
-	{
-		try ( Session session = driver.session () )
-		{
-			session.run ( "MATCH (a)-[r]->() DELETE a, r" );
-			session.run ( "MATCH (a) DELETE a" );
-		}
-	}
-
-	@Before
-	public void createData ()
-	{
-		try ( Session session = driver.session () )
-		{
-
 			session.run ( "CREATE (smartphones:Category {title: 'Smartphones'}), \r\n"
 					+ "(notebooks:Category {title: 'Notebooks'}), \r\n" + "(cameras:Category {title: 'Cameras'})\r\n" + "\r\n"
 					+ "// Smartphones\r\n"
@@ -103,8 +74,6 @@ public abstract class Neo4jTestBase
 					+ "\r\n" + "MERGE(alisson)-[:ADDED_TO_WISH_LIST]->(acer_swift_3)\r\n"
 					+ "MERGE(alisson)-[:ADDED_TO_WISH_LIST]->(hp_pro_book)\r\n" + "MERGE(alisson)-[:BOUGHT]->(huawei_p8)\r\n"
 					+ "MERGE(alisson)-[:BOUGHT]->(sony_xperia_xa1);" );
-
-<<<<<<< HEAD
 		} 
 	} 
 	
@@ -114,10 +83,6 @@ public abstract class Neo4jTestBase
 		createData();
 		driver.close();
 	}
-=======
-		} // try session
-	} // createData ()
->>>>>>> branch 'master' of https://github.com/Rothamsted/kgraph-usecases.git
-
+	
 }
 
