@@ -15,7 +15,7 @@ import uk.ac.rothamsted.neo4j.utils.Neo4jTestBase;
  */
 public class Neo4jMetaGraphTest extends Neo4jTestBase
 {
-	protected Neo4jMetaGraph testMeta = new Neo4jMetaGraph (this.driver);
+	protected Neo4jMetaGraph testMeta = new Neo4jMetaGraph ( driver );
 	
 	@Test
 	public void testClassesSummary ()
@@ -25,22 +25,29 @@ public class Neo4jMetaGraphTest extends Neo4jTestBase
 		boolean expectedRowFound = false;
 		String expectedRow = "label: Category, Frequency: 3";
 
-		int rowIndex = 0;
+//		int rowIndex = 0;
+//		
+//		while (expectedRowFound != true) {
+//			String row1 = rows.get(rowIndex).toString();
+//			System.out.println(row1);
+//			if (row1.matches(expectedRow) == true) {
+//				expectedRowFound = true;
+//				System.out.println("expected row found"); //just to help me while testing
+//			} else {
+//				rowIndex += 1;
+//				System.out.println("expected row not found, next row searching... Row " + rowIndex); //just to help me while testing
+//			}
+//			
+//		}
 		
-		while (expectedRowFound != true) {
-			String row1 = rows.get(rowIndex).toString();
-			System.out.println(row1);
-			if (row1.matches(expectedRow) == true) {
-				expectedRowFound = true;
-				System.out.println("expected row found"); //just to help me while testing
-			} else {
-				rowIndex += 1;
-				System.out.println("expected row not found, next row searching... Row " + rowIndex); //just to help me while testing
-			}
-			
+		// Compare this approach with yours above. Deletes the commented code afterwards.
+		//
+		for ( ClassSummaryRow row: rows ) {
+			System.out.println ( "ROW: " + row );
+			if ( expectedRowFound = expectedRow.equals ( row.toString () ) ) break;
 		}
 		
-		Assert.assertTrue(expectedRowFound);	
+		Assert.assertTrue ( "Probe row not found!", expectedRowFound );	
 		
 	}
 	
