@@ -22,9 +22,9 @@ public class Neo4jMetaGraphTest extends Neo4jTestBase
 	{
 		List<ClassSummaryRow> rows = testMeta.classesSummary();
 		
-//		boolean expectedRowFound = false;
 		String expectedRow = "label: Category, Frequency: 3";
 
+//		boolean expectedRowFound = false;
 //		int rowIndex = 0;
 //		
 //		while (expectedRowFound != true) {
