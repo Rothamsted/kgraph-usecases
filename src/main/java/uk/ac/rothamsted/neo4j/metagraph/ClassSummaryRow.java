@@ -5,8 +5,8 @@ package uk.ac.rothamsted.neo4j.metagraph;
  */
 public class ClassSummaryRow
 {
-	public String label;
-	public long frequency;
+	private String label;
+	private long frequency;
 
 	/**
 	 * 
