@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Metagraph demo</title>
+
+  <link rel="stylesheet" href="css/cytoscape.css"></link>
+	
+	<!-- 
+		The 3rd-party Cytoscape.js library for graph rendering 
+	 	Have a look at:
+	 		https://blog.js.cytoscape.org/2016/05/24/getting-started/
+	-->	
+	<script src="js/cytoscape.min.js"></script>
+	<!-- 
+		Our own facilities 
+	-->
+	<script src="js/metagraph.js"></script>
+	
+</head>
+<!-- 
+  Uses our own js/metagraph.js facilities, Cytoscape.js, and our metagraph API to draw the corresponding
+  summary graph of relations in a Neo4j database
+-->
+<body onload = "drawMetaGraph()" >
+	<div id="cy" class="cytoscape"></div>
+</body>
+</html>

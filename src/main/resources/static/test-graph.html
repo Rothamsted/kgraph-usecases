@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Cytoscape Tutorial</title>
+
+  <link rel="stylesheet" href="css/cytoscape.css"></link>
+	
+	<!-- 
+		The 3rd-party Cytoscape.js library for graph rendering 
+	 	Have a look at:
+	 		https://blog.js.cytoscape.org/2016/05/24/getting-started/
+	-->	
+	<script src="js/cytoscape.min.js"></script>
+	<!-- 
+		Our own facilities 
+	-->
+	<script src="js/metagraph.js"></script>
+  <script>
+  /*
+  	Testing a foo graph with the Cytoscape.js visualisation library and our own
+  	wrapping code (see js/metagraph.js)
+  */
+  function myDrawGraph ()
+  {
+	  drawGraph (
+		[
+	    { data: { id: 'a', label: 'Node A' } },
+	    { data: { id: 'b', label: 'Node B' } },
+	    { data: { id: 'a_knows_b', source: 'a', target: 'b', label: 'knows' } }
+	  ]);
+  }
+  </script>		
+</head>
+
+<body onload = "myDrawGraph()" >
+	<div id="cy" class="cytoscape"></div>
+</body>
+</html>
