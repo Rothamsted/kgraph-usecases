@@ -20,3 +20,7 @@ java -jar target/kgraph-usecases-0.0.1-SNAPSHOT.jar
 #
 # It might take a while before seeing anything, give a look to the terminal logs
 #
+# The files that are accessible this way are at src/main/resources/static
+# They're automatically published via web by Spring Boot:
+#   https://spring.io/blog/2013/12/19/serving-static-web-content-with-spring-boot
+#
