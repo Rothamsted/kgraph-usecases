@@ -116,4 +116,18 @@
 			</releases>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<!-- This is where the neo4j plugin is searched -->
+			<id>knetminer-repo</id>
+			<name>Knetminer Unified Repository</name>
+			<url>https://knetminer.com/artifactory/repository/maven-public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
 </project>
