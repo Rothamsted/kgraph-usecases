@@ -50,8 +50,9 @@ public class Neo4jMetaGraph extends Neo4jConnection
   public List<RelationSummaryRow> relationsSummary() {
       try (Session session = driver.session()) {
     	  List<RelationSummaryRow> result1 = new ArrayList<>();
-      	  Result result = session.run("MATCH (x)-[r]->(y) WITH LABELS(x) AS fromTypes, LABELS(y) AS toTypes, COUNT(r) AS freq, TYPE(r) AS relType"
-      			+ " UNWIND fromTypes AS fromType UNWIND toTypes AS toType UNWIND relType AS relationType RETURN fromType, toType, relationType, freq ORDER BY freq DESC");
+      	  Result result = session.run("MATCH (x)-[r]->(y) WITH LABELS(x) AS fromTypes, LABELS(y) AS toTypes, COUNT(r) AS freq, TYPE(r) AS relationType\n"
+      			+ " UNWIND fromTypes AS fromType UNWIND toTypes AS toType\n"
+      			+ "RETURN fromType, toType, relationType, freq ORDER BY freq DESC");
           while (result.hasNext()) {
               Record record = result.next();
               result1.add(new RelationSummaryRow(record.get("fromType").asString(),record.get("toType").asString(),record.get("relationType").asString(),record.get("freq").asLong()));
