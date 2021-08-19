@@ -27,3 +27,6 @@ Start-Process -FilePath java -NoNewWindow -Wait -ArgumentList "-cp target/kgraph
 # They're automatically published via web by Spring Boot:
 #   https://spring.io/blog/2013/12/19/serving-static-web-content-with-spring-boot
 #
+
+# Remove this at the end, it interferes with the Maven build.
+$env:NEO_URL=$null
