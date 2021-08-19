@@ -15,7 +15,10 @@ Pop-Location
 # user/password are irrelevant in this case, since authentication is disabled
 $env:NEO_URL="bolt://knetminer-neo4j.cyverseuk.org:7688" # Arabidopsis dataset
 
+# This is a more verbose syntax than plain -jar, which were giving us problems under Win (https://stackoverflow.com/a/19251196/529286). 
+# The Main class is provided by SpringBoot and was taken from the .jar's manifest.
 Start-Process -FilePath java -NoNewWindow -Wait -ArgumentList "-cp target/kgraph-usecases-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.JarLauncher"
+
 # After this, you should be able to go to: 
 # Foo static page (index.html): http://localhost:8080
 # Simple graph test: http://localhost:8080/test-graph.html 
