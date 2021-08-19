@@ -80,7 +80,8 @@
 							and *IT.java tests are executed during the integration test phase. Here, 
 							we make it simpler by starting/stopping around the regular test stage. This 
 							is a rather advanced Maven topic, see here for details: https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html -->
-						<phase>process-test-resources</phase>
+						<!-- phase>process-test-resources</phase -->
+						<phase>none</phase> <!-- TODO: doesn't work on Windows :-( -->
 						<goals>
 							<goal>start</goal>
 						</goals>
@@ -89,7 +90,8 @@
 						<id>stop-neo4j-server</id>
 						<!-- It's stopped after the tests (surefire), since the latter is 
 							listed above before this -->
-						<phase>test</phase>
+						<!-- phase>test</phase -->
+						<phase>none</phase> <!-- TODO: doesn't work on Windows :-( -->
 						<goals>
 							<goal>stop</goal>
 						</goals>
